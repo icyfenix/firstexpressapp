@@ -19,3 +19,8 @@ exports.blog = function(req, res){
 		res.render('blog', blog_posts[req.query.post]);
 	}
 };
+
+exports.blog_json = function (req, res) {
+	var blog_json_string = JSON.stringify(blog_posts)
+	res.send(blog_json_string);
+}

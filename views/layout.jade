@@ -5,8 +5,23 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
 		script(src='/javascripts/bootstrap.js')
+		script(src='http://code.jquery.com/jquery-latest.js')
+		script
+			//This is a jQuery function that asks specifically for JSON.
+			$.getJSON("http://localhost:5000/blog/json", //Take a look at index.js and app.js to see how I defined a route.
+				{
+				"post" : 1 //this information is sent in the request body to the server. The server can then read it and do whatever it needs to do (like save it in a database, or determine what to send back).
+				},
+				function(data) { //This is your callback, it gets executed when you get data back from your request.
+					console.log(data); //Here's the data you got back! Take a look at the console.
+					$.each(data, function(i,item){
+						$("<p>").html( item.post).appendTo("#posts");
+					});
+			});
+
 	body
 		div(class='navbar navbar-fixed-top')
 			div(class='navbar-inner')
 				a(class='brand') my blog
+		div(id='posts')
 		block content
